@@ -290,12 +290,17 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
     
 	    //todo 3/8/18 
 	// open a separate log file 
+        //FILE *fp;
+	//fp=fopen('/home/nvidia/sayhello/darknet/output.txt,'+');
 	// print to that log file
-	// print person %x (label & confidence) in same line.
+        //fprintf(fp,"logging Bounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
+	//fclose(fp); // close file
+// swap with socket?  
+// print person %x (label & confidence) in same line.
 	// reparse format into json format (or xml) for pickup by API.
 	// wget the server to tell the server (on arduino?) with gun 'new-target'
-            printf("Bounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
-
+            printf("xBounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
+	  
             draw_box_width(im, left, top, right, bot, width, red, green, blue);
             if (alphabet) {
                 image label = get_label(alphabet, labelstr, (im.h*.03)/10);
