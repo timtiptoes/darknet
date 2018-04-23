@@ -54,6 +54,8 @@ void loop() {
   // listen for incoming clients
   EthernetClient client = server.available();
   if (client) {
+    readString="";
+
     Serial.println("new client");
     // an http request ends with a blank line
     boolean currentLineIsBlank = true;
@@ -93,8 +95,6 @@ void loop() {
           
             client.print("You just sent me");
             client.print(readString);
-          //clearing string for next read
-          readString="";
           }
           client.println("<br />");
           client.println("</html>");
