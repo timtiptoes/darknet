@@ -4,7 +4,7 @@
 #include "cuda.h"
 #include <stdio.h>
 #include <math.h>
-#include "/home/nvidia/gitrepos/darknet/arduino/jetson_to_arduino/mylib.h"
+#include "mylib.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
@@ -238,6 +238,7 @@ image **load_alphabet()
 void draw_detections(image im, int num, float thresh, box *boxes, float **probs, float **masks, char **names, image **alphabet, int classes)
 {
     int i,j;
+	char coordstr[200];
 
     for(i = 0; i < num; ++i){
         char labelstr[4096] = {0};
@@ -287,7 +288,7 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
             if(right > im.w-1) right = im.w-1;
             if(top < 0) top = 0;
             if(bot > im.h-1) bot = im.h-1;
-    
+       
 	    //todo 3/8/18 
 	// open a separate log file 
         //FILE *fp;
@@ -299,7 +300,9 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
 // print person %x (label & confidence) in same line.
 	// reparse format into json format (or xml) for pickup by API.
 	// wget the server to tell the server (on arduino?) with gun 'new-target'
-            printf("xBounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
+	sprintf(coordstr,"left=%d&top=%d&right=%d&bottom=%d", left, top, right, bot);
+            printf("dBounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
+	send_coords(coordstr);
 	  
             draw_box_width(im, left, top, right, bot, width, red, green, blue);
             if (alphabet) {
