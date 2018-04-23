@@ -1,14 +1,18 @@
 #include <stdio.h>
 #include <curl/curl.h>
- 
-int main(void)
+#include <string.h>
+
+
+
+int send_coords(char *msg)
 {
   CURL *curl;
   CURLcode res;
- 
+  char str[80];
   curl = curl_easy_init();
   if(curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, "http://192.168.1.175/?msg=doofles");
+    strcpy(str,"http://192.168.1.175/?msg=");
+    curl_easy_setopt(curl, CURLOPT_URL, strcat(str,"doiles"));
     /* example.com is redirected, so we tell libcurl to follow redirection */ 
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
  
@@ -24,3 +28,5 @@ int main(void)
   }
   return 0;
 }
+
+
