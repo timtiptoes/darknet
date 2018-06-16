@@ -10,6 +10,36 @@
 #define KEY       "dontfear7thegipper8"
 #define AUTH      WIFLY_AUTH_WPA2_PSK
 
+/*
+//https://www.dreamincode.net/forums/topic/222380-going-through-each-element-of-a-char-array-in-c/
+//http://forum.codecall.net/topic/59761-iterating-through-a-char-in-c/
+//https://stackoverflow.com/questions/10279718/append-char-to-string-in-c
+//https://stackoverflow.com/questions/4823177/reading-a-file-character-by-character-in-c
+//https://scienceprog.com/getting-hands-on-arduino-ethernet-shield/
+//https://github.com/LambdaSchool/C-Web-Server/blob/solution/src/server.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main () {
+    int x,y;
+   char type[20], path[20], protocol[100], dtm[200],dummy1[20],dummy2[20];
+
+   strcpy( dtm, "GET /?x=123&y=177 HTTP/1.1" );
+   //strcpy( dtm, "apple xf5kyj8 HTTP/1.1" );
+   sscanf( dtm, "%s %s %s", type, path, protocol );
+
+   printf("%s %s, %s \n", type, path, protocol );
+    
+   sscanf(path,"%4s%d%3s%d",dummy1,&x,dummy2,&y);
+    //sscanf("sddf4711bar", "%s%d%s", dummy2,&x, dummy1);
+   printf("I found %d \n",x);
+   return(0);
+}
+
+*/
+
+
 char type[8]; // GET or POST
 char path[1024]; // /info etc.
 char protocol[128]; // HTTP/1.1
