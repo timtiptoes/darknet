@@ -59,8 +59,10 @@ int main () {
 char type[8]; // GET or POST
 char path[1024]; // /info etc.
 char protocol[128]; // HTTP/1.1
+char dummy1[20],dummy2[20];
 char c;
-char first_line;
+char *first_line;
+int i,x,y;
 
 
 // Pins' connection
@@ -69,6 +71,7 @@ char first_line;
 //  3    <---->    RX
 SoftwareSerial uart(2, 3);
 WiFly wifly(&uart);
+first_line=malloc(1000);
 
 void setup() {
   uart.begin(9600);
@@ -110,11 +113,18 @@ void loop() {
   while (Serial.available()) {
     if(wiflyUart.find("*OPEN*")) // see if the data available is from an open connection by looking for the *OPEN* string
         {
+          i=0;
           c=wiflyUart.read();
           while (c!='\n'){
-            first_line+=c;
+            first_line[i]=c;
+            i++;
           }
-          sscanf(first_line, "%s %s %s", type, path,protocol);
+          first_line[i] = '\0'; 
+
+   sscanf( first_line, "%s %s %s", type, path, protocol );
+   Serial.println("I found "+type+" and "+path+" and "+protocol);
+   sscanf(path,"%4s%d%3s%d",dummy1,&x,dummy2,&y);
+   Serial.println("You'll be happy to know that I got "+x+" and "+y);
           wifly.write(request_path);
         }
           wifly.write(Serial.read());
