@@ -20,20 +20,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 int main () {
-    int x,y;
-   char type[20], path[20], protocol[100], dtm[200],dummy1[20],dummy2[20];
+    int i,x,y;
+    char *first_line;
+    char type[20], path[20], protocol[100], dtm[200],dummy1[20],dummy2[20];
+    char str[] = "GET /?x=123&y=177 HTTP/1.1";
+    size_t n = 0;
 
-   strcpy( dtm, "GET /?x=123&y=177 HTTP/1.1" );
+    first_line=malloc(1000);
+
+    
+    for(i = 0; str[i] != '\0'; ++i) {
+        first_line[i] = str[i];
+    }
+
+    first_line[i] = '\0'; 
+    
+
+ //      while ((c = fgetc(file)) != EOF)
+ //   {
+ //       code[n++] = (char) c;
+ //   }
+
+//   strcpy( dtm, "GET /?x=123&y=177 HTTP/1.1" );
    //strcpy( dtm, "apple xf5kyj8 HTTP/1.1" );
-   sscanf( dtm, "%s %s %s", type, path, protocol );
-
+   sscanf( first_line, "%s %s %s", type, path, protocol );
    printf("%s %s, %s \n", type, path, protocol );
     
    sscanf(path,"%4s%d%3s%d",dummy1,&x,dummy2,&y);
     //sscanf("sddf4711bar", "%s%d%s", dummy2,&x, dummy1);
-   printf("I found %d \n",x);
+   printf("I found %d and of course %d\n",x,y);
    return(0);
 }
 
