@@ -300,8 +300,10 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
 // print person %x (label & confidence) in same line.
 	// reparse format into json format (or xml) for pickup by API.
 	// wget the server to tell the server (on arduino?) with gun 'new-target'
-	sprintf(coordstr,"left=%d&top=%d&right=%d&bottom=%d", left, top, right, bot);
+//	sprintf(coordstr,"left=%d&top=%d&right=%d&bottom=%d", left, top, right, bot);
+	sprintf(coordstr,"x=%d&y=%d", left,top);
             printf("dBounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
+	    printf("Am sending %s\n",coordstr);
 	send_coords(coordstr);
 	  
             draw_box_width(im, left, top, right, bot, width, red, green, blue);

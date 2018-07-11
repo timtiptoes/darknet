@@ -14,7 +14,7 @@ void send_coords(char* coordstr)
   curl = curl_easy_init();
   if(curl) {
 
-    snprintf(timsstr,sizeof timsstr,"%s%s","http://192.168.1.175/?",coordstr);
+    snprintf(timsstr,sizeof timsstr,"%s%s","http://192.168.1.125/?",coordstr);
 	printf("Im really trying to get to %s",timsstr);
     curl_easy_setopt(curl, CURLOPT_URL,timsstr);
     /* example.com is redirected, so we tell libcurl to follow redirection */ 
