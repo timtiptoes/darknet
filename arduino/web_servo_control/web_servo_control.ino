@@ -18,6 +18,8 @@ Servo myservo;  // create servo object to control a servo
 
 #define SSID      "<YOUR SSID>"
 #define KEY       "<Your network key>"
+
+
 #define AUTH      WIFLY_AUTH_WPA2_PSK
 
 char type[8]; // GET or POST
@@ -137,6 +139,15 @@ void loop() {
       myservo.write(x); //convert readString to number for servo
       delay(200);
       myservo.detach();
+      
+      wifly.println("HTTP/1.1 200 OK");
+      wifly.println("Content-Type: text/html; charset=UTF-8");
+      wifly.println("Content-Length: 59"); // length of HTML code
+      wifly.println("Connection: close");
+      wifly.println();
+
+      wifly.print("<html><head></head><body>coordinates received</body></html>");
+        
     }
   }
 }
