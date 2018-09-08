@@ -289,25 +289,20 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
             if(top < 0) top = 0;
             if(bot > im.h-1) bot = im.h-1;
        
-	    //todo 3/8/18 
-	// open a separate log file 
-        //FILE *fp;
-	//fp=fopen('/home/nvidia/sayhello/darknet/output.txt,'+');
-	// print to that log file
-        //fprintf(fp,"logging Bounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
-	//fclose(fp); // close file
-// swap with socket?  
-// print person %x (label & confidence) in same line.
-	// reparse format into json format (or xml) for pickup by API.
-	// wget the server to tell the server (on arduino?) with gun 'new-target'
-//	sprintf(coordstr,"left=%d&top=%d&right=%d&bottom=%d", left, top, right, bot);
+
 	int midx=(left+right)/2;
 	int midy=(top+bot)/2;
-	int tx=57-(midx*22)/552;
-	int ty=45;
+	int tx=69-(midx*45)/640;
+	int ty=71-(midy*28)/480;
 	sprintf(coordstr,"x=%d&y=%d", tx,ty);
             printf("dBounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot); 
 	    printf("Am sending %s\n",coordstr);
+	//Hey Tim, 
+	//Run this watch -n 1 'tail -n 1 points.txt|xargs curl'
+	//Also to make the setting of scaling factors easier
+	//	1) Make this read from config file
+	//	2) Make arduino return values of two potentiometers 
+	//	3) Modify watch command to read from config file every time or every 10th time or something 
 	//send_coords(coordstr);
 
             draw_box_width(im, left, top, right, bot, width, red, green, blue);
