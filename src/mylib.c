@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string.h>
-/*gcc -o mylib.o -c mylib.c -lcurl */
+/*To compile module
+  cd src
+  gcc -o mylib.o -c mylib.c -lcurl 
+  
+And of course just 'make' to make darknet
+*/
 
 
 void send_coords(char* coordstr)
@@ -36,7 +41,20 @@ void send_coords(char* coordstr)
 
 }
 
+void print_coords_to_file(char* labelstr,char* coordstr)
+{
+   if (strcmp(labelstr,"teddy bear")==0) 
+    {
+      FILE *f = fopen("points.txt", "a");
+      if (f != NULL )
+      {
+         fprintf(f, "http://192.168.1.125/?%s\n", coordstr);
+         fclose(f);
+      }
+    }
+}
 void send_coords_test(char *msg)
 {
 	printf("just want you to know that I got %s",msg);
 }
+
