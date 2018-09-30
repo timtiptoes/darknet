@@ -31,6 +31,9 @@ struct pair get_pot_reading()
 {
   int xValue,yValue;
   button1State = digitalRead(button1Pin);
+  xValue = analogRead(xPin);  
+  yValue = analogRead(yPin);
+  
   while(button1State == HIGH){
     xValue = analogRead(xPin);  
     yValue = analogRead(yPin);
