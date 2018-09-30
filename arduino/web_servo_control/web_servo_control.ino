@@ -13,12 +13,13 @@ Servo myservo;  // create servo object to control a servo
 // 3) Go to a web browser on your network and use the IP you got from the serial monitor
 //       and enter an x and y in the get parameters.
 //       This is for my network: 
-//               http://192.168.1.125/?x=100&y=777
+//               http://192.168.1.125/?x=45&y=45
 // For now only the x channel works, so the y value is meaningless
 
 #define SSID      "<YOUR SSID>"
 #define KEY       "<Your network key>"
-
+#define SSID      "ATTxUERtUI"
+#define KEY       "dontfear7thegipper8"
 
 #define AUTH      WIFLY_AUTH_WPA2_PSK
 
@@ -28,7 +29,7 @@ char protocol[128]; // HTTP/1.1
 char dummy1[20],dummy2[20];
 char first_line[400];
 char cc;
-int i,x,y;
+int i,x,y,xl,yl;
 char ip[16];
 
 // Pins' connection
@@ -42,6 +43,8 @@ void setup() {
   myservo.write(0);
 
   myservo.attach(9);  //the pin for the servo control 
+  myservo.attach(10);  //the pin for the servo control 
+
   delay(200);
   myservo.detach();
   
@@ -78,7 +81,6 @@ void setup() {
   delay(5000);
 
   wifly.sendCommand("get ip\r");
-
   uart.setTimeout(500);
   if(!uart.find("IP="))
   {
@@ -106,7 +108,10 @@ void setup() {
   Serial.println();
   while (wifly.receive((uint8_t *)&c, 1, 300) > 0);
   ;
+  
   Serial.println("Web server ready");
+    wifly.sendCommand("set comm idle 4");
+  
 }
 
 void loop() {
@@ -134,11 +139,27 @@ void loop() {
       sscanf(path,"%4s%d%3s%d",dummy1,&x,dummy2,&y);
       Serial.println(x);
       Serial.println(y);
-      myservo.attach(9);
-      delay(200);
-      myservo.write(x); //convert readString to number for servo
-      delay(200);
-      myservo.detach();
+      Serial.println("And the last ones are");
+      Serial.println(xl);
+      Serial.println(yl);
+      if ((x!=xl) || (y!=yl)){
+        Serial.println("Received different coordinates\n");
+        Serial.println(x);
+        Serial.println(y);
+        myservo. attach(9);
+        delay(200);
+        myservo.write(x); //convert readString to number for servo
+        delay(200);
+        //myservo.detach();
+
+        myservo.attach(10);
+        delay(200);
+        myservo.write(y); //convert readString to number for servo
+        delay(200);
+        myservo.detach();
+      }
+      xl=x;
+      yl=y;
       
       wifly.println("HTTP/1.1 200 OK");
       wifly.println("Content-Type: text/html; charset=UTF-8");
@@ -147,7 +168,6 @@ void loop() {
       wifly.println();
 
       wifly.print("<html><head></head><body>coordinates received</body></html>");
-        
     }
   }
 }

@@ -31,7 +31,10 @@ struct pair get_pot_reading()
 {
   int xValue,yValue;
   button1State = digitalRead(button1Pin);
-  while(button1State == HIGH){
+  xValue = analogRead(xPin);  
+  yValue = analogRead(yPin);
+  
+  while(LOW == HIGH){
     xValue = analogRead(xPin);  
     yValue = analogRead(yPin);
     button1State = digitalRead(button1Pin);
@@ -65,9 +68,7 @@ int x1=upper_left.x;
 int y1=upper_left.y;
 digitalWrite(ledPin1, LOW);      // Turn the LED offr right corner
 Serial.println("Just read these corners:");
-Serial.print(x0);
-Serial.print(",");
-Serial.println(y0);
+
 Serial.print(x1);
 Serial.print(",");
 Serial.println(y1);
@@ -78,7 +79,12 @@ Serial.println(y1);
 
 void loop() // this function runs repeatedly after setup() finishes
 {
-
-  delay(5);
+struct pair lower_right = get_pot_reading();
+int x0=lower_right.x;
+int y0=lower_right.y;
+Serial.print(x0);
+Serial.print(",");
+Serial.println(y0);
+ // delay(500);
   
 }
