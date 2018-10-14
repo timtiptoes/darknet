@@ -61,7 +61,7 @@ struct pair lower_right = get_pot_reading();
 int x0=lower_right.x;
 int y0=lower_right.y;
 digitalWrite(ledPin1, LOW);      // Turn the LED offr right corner
-delay(1000);
+delay(3000);
 digitalWrite(ledPin1, HIGH);     // Turn the LED on
 struct pair upper_left = get_pot_reading();
 int x1=upper_left.x;
