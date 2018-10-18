@@ -3,8 +3,26 @@
 #include <stdlib.h>
 #include <string.h>
 #include <Servo.h> 
+/* How should setup work
+Get upper left
+Get lower right
 
-Servo myservo; 
+Get anything
+  While button not pressed
+    get pot readings
+    if x changed more by delta
+      then move x there
+    if y changed more than delta
+      the move y there
+  Return pot readings
+    
+
+
+*/
+
+
+Servo myxservo; 
+Servo myyservo;
 
 int x0=0,y0=0,x1=0,y1=0;
 
@@ -15,7 +33,6 @@ int yPin = 1;
 int ledPin1 = 13;
   
 int ledPin2 = 14;
-int xs_old=0;
 
 const int button1Pin = 2;  // pushbutton 1 pin
 
@@ -28,37 +45,34 @@ struct pair {
 
 struct pair get_pot_reading()
 {
-  int xValue,yValue;
+  int xValue,yValue,xs_old=0,xs,ys,ys_old=0;
   button1State = digitalRead(button1Pin);
   xValue = analogRead(xPin);  
   yValue = analogRead(yPin);
+
   
   while(button1State == HIGH){
     xValue = analogRead(xPin);  
     yValue = analogRead(yPin);
+
     button1State = digitalRead(button1Pin);
+    xs=map(xValue,0,1023,0,180);
+    if ((abs(xs-xs_old)>5)){
+      myxservo.write(xs);
+      xs_old=xs;
+    }
+    ys=map(yValue,0,1023,0,180);
+    if ((abs(ys-ys_old)>5)){
+      myyservo.write(ys);
+      ys_old=ys;
+    }
   }
-  pair r = {xValue,yValue};
+  pair r = {xs_old,ys_old};
 return r;
 }
-void move_servo(pin,val){
-  myservo. attach(pin);
-  delay(200);
-  myservo.write(val); //convert readString to number for servo
-  delay(200);
-  myservo.detach();
-
-
 
 void setup() // this function runs once when the sketch starts up
 {
-  myservo.write(0);
-
-  myservo.attach(9);  //the pin for the servo control 
-
-  delay(200);
-  myservo.detach();
-  
   // Initialize serial communication at 115200 baud
 Serial.begin(9600);
  while (!Serial) {
@@ -67,7 +81,11 @@ Serial.begin(9600);
 pinMode(ledPin1, OUTPUT);
 pinMode(ledPin2, OUTPUT);
 pinMode(button1Pin, INPUT);
+myxservo.write(0); //set initial servo position to 0
+myxservo.attach(9);
 
+myyservo.write(0);
+myyservo.attach(10);
 
 digitalWrite(ledPin1, HIGH);     // Turn the LED on
 struct pair lower_right = get_pot_reading();
@@ -81,6 +99,9 @@ int x1=upper_left.x;
 int y1=upper_left.y;
 digitalWrite(ledPin1, LOW);      // Turn the LED offr right corner
 Serial.println("Just read these corners:");
+Serial.print(x0);
+Serial.print(",");
+Serial.println(y0);
 
 Serial.print(x1);
 Serial.print(",");
@@ -92,25 +113,8 @@ Serial.println(y1);
 
 void loop() // this function runs repeatedly after setup() finishes
 {
-struct pair lower_right = get_pot_reading();
-int x0=lower_right.x;
-int y0=lower_right.y;
-int xs=map(x0,0,1023,0,180);
-if ((abs(xs-xs_old)>5)){move_servo(9,xs);}
-int ys=map(x0,0,1023,0,180);
-
-if ((abs(ys-ys_old)>5)){move_servo(10,ys)}
-//Serial.print(x0);
-//Serial.print(",");
-//Serial.println(y0);
-Serial.println("mapping ");
-Serial.print(x0);
-Serial.print(" to ");
-Serial.print(xs);
-Serial.print(" and xs_old is ");
-Serial.println(xs_old);
-  delay(300);
-xs_old=xs;
-
+  while (HIGH == HIGH) {
+    delay(100);
+  }
   
 }
