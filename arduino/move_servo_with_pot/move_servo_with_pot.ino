@@ -33,7 +33,7 @@ struct pair get_pot_reading()
   xValue = analogRead(xPin);  
   yValue = analogRead(yPin);
   
-  while(LOW == HIGH){
+  while(button1State == HIGH){
     xValue = analogRead(xPin);  
     yValue = analogRead(yPin);
     button1State = digitalRead(button1Pin);
@@ -41,6 +41,14 @@ struct pair get_pot_reading()
   pair r = {xValue,yValue};
 return r;
 }
+void move_servo(pin,val){
+  myservo. attach(pin);
+  delay(200);
+  myservo.write(val); //convert readString to number for servo
+  delay(200);
+  myservo.detach();
+
+
 
 void setup() // this function runs once when the sketch starts up
 {
@@ -88,13 +96,10 @@ struct pair lower_right = get_pot_reading();
 int x0=lower_right.x;
 int y0=lower_right.y;
 int xs=map(x0,0,1023,0,180);
-if ((abs(xs-xs_old)>5)){
-  myservo. attach(9);
-  delay(200);
-  myservo.write(xs); //convert readString to number for servo
-  delay(200);
-  myservo.detach();
-}
+if ((abs(xs-xs_old)>5)){move_servo(9,xs);}
+int ys=map(x0,0,1023,0,180);
+
+if ((abs(ys-ys_old)>5)){move_servo(10,ys)}
 //Serial.print(x0);
 //Serial.print(",");
 //Serial.println(y0);
