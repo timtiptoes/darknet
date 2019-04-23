@@ -1,0 +1,8 @@
+control.html - HTML file with web links in it to send servos to discrete positions
+direct_servo_control - enter in single coordinate value into serial monitor and send to whichever servo is attached to pin 9
+read_pot_during_setup - fetches x and y during setup 
+servo_test - This will sweep a servo attached to pin 9 back and forth
+test_pot_reads - read value of two pots and continually dump to serial out
+web_servo_calibratable
+web_servo_control
+move_servo_with_pot - allow direct control of servo with pot
