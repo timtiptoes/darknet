@@ -5,5 +5,22 @@ servo_test - This will sweep a servo attached to pin 9 back and forth
 test_pot_reads - read value of two pots and continually dump to serial out
 web_servo_calibratable
 web_servo_control
+
+4/28/2019 activce decvelopment
 move_servo_with_pot - allow direct control of servo with pot [ this is the most recent that allows you to choose a bounding box]
 
+So 
+lower right=x0,y0
+upper left =x1,y1
+
+I have to convert incoming x,y which will always be 
+	0-640
+	0-480
+
+to 
+	map(x,0,640,x0,x1)
+	may(y,0,480,y0,y1)
+
+-->Need to get x's and y's straigt
+-->Need to get sign right
+-->
