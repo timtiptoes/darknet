@@ -6,13 +6,11 @@
 #include <SoftwareSerial.h>
 #include "WiFly.h"
 
-#define SSID      "<YOUR SSID>"
-#define KEY       "<Your network key>"
 #define SSID      "ATTxUERtUI"
 #define KEY       "dontfear7thegipper8"
 
 #define AUTH      WIFLY_AUTH_WPA2_PSK
-
+Servo myservo;
 char type[8]; // GET or POST
 char path[100]; // /info etc.
 char protocol[128]; // HTTP/1.1
@@ -26,8 +24,7 @@ char ip[16];
 // Arduino       WiFly
 //  2    <---->    TX
 //  3    <---->    RX
-SoftwareSerial uart(2, 3);
-WiFly wifly(&uart);
+
 
 /* How should setup work
 Get upper left
@@ -47,7 +44,9 @@ Get anything
 
 */
 
-
+SoftwareSerial uart(2, 3);
+WiFly wifly(&uart);
+  
 Servo myxservo; 
 Servo myyservo;
 
@@ -71,7 +70,8 @@ struct pair {
 };
 
 void init_wifli(){
-    uart.begin(9600);
+
+  uart.begin(9600);
 
   Serial.begin(9600);
   Serial.println("--------- Web Servo Control --------");
@@ -211,8 +211,13 @@ void setup() // this function runs once when the sketch starts up
   Serial.print(x1);
   Serial.print(",");
   Serial.println(y1);
+  x0=9;y0=170;
+  x1=153;y1=32;
+  delay(1000);
 
   Serial.println("Initializing WiFly...");
+    delay(1000);
+
   init_wifli();
 
 }
@@ -252,7 +257,7 @@ void loop() {
         
         Serial.println(y);
         myservo. attach(9);
-        xs=map(x,0,180,53,165);
+        xs=map(x,0,640,x1,x0);
         delay(200);
         myservo.write(xs); //convert readString to number for servo
         delay(200);
@@ -260,7 +265,7 @@ void loop() {
          
         myservo.attach(10);
         delay(200);
-        ys=map(y,0,180,180,0);
+        ys=map(y,0,480,y1,y0);
         myservo.write(ys); //convert readString to number for servo
         Serial.println("Just wrote to scaled coordinates:");
         Serial.println(xs);
