@@ -69,6 +69,10 @@ struct pair get_pot_reading()
     }
   }
   pair r = {xs_old,ys_old};
+  Serial.println("Just sent these corners:");
+Serial.print(xs);
+Serial.print(",");
+Serial.println(ys);
 return r;
 }
 
@@ -89,9 +93,15 @@ myyservo.write(0);
 myyservo.attach(10);
 
 digitalWrite(ledPin1, HIGH);     // Turn the LED on
+Serial.println("Waiting for lower_right...");
+
 struct pair lower_right = get_pot_reading();
 int x0=lower_right.x;
 int y0=lower_right.y;
+Serial.println("Just read lower right");
+Serial.print(x0);
+Serial.print(",");
+Serial.println(y0);
 digitalWrite(ledPin1, LOW);      // Turn the LED offr right corner
 delay(1000);
 digitalWrite(ledPin1, HIGH);     // Turn the LED on

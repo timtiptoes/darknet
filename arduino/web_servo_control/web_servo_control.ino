@@ -29,7 +29,7 @@ char protocol[128]; // HTTP/1.1
 char dummy1[20],dummy2[20];
 char first_line[400];
 char cc;
-int i,x,y,xl,yl;
+int i,x,y,xl,yl,xs,ys;
 char ip[16];
 
 // Pins' connection
@@ -145,16 +145,22 @@ void loop() {
       if ((x!=xl) || (y!=yl)){
         Serial.println("Received different coordinates\n");
         Serial.println(x);
+        
         Serial.println(y);
         myservo. attach(9);
+        xs=map(x,0,180,53,165);
         delay(200);
-        myservo.write(x); //convert readString to number for servo
+        myservo.write(xs); //convert readString to number for servo
         delay(200);
         //myservo.detach();
-
+         
         myservo.attach(10);
         delay(200);
-        myservo.write(y); //convert readString to number for servo
+        ys=map(y,0,180,180,0);
+        myservo.write(ys); //convert readString to number for servo
+        Serial.println("Just wrote to scaled coordinates:");
+        Serial.println(xs);
+        Serial.println(ys);
         delay(200);
         myservo.detach();
       }
