@@ -148,16 +148,16 @@ void loop() {
         
         Serial.println(y);
         myservo. attach(9);
-        xs=map(x,0,180,53,165);
+        xs=map(x,0,640,154,9);
         delay(200);
-        myservo.write(xs); //convert readString to number for servo
+       // myservo.write(xs); //convert readString to number for servo
         delay(200);
         //myservo.detach();
          
         myservo.attach(10);
         delay(200);
-        ys=map(y,0,180,180,0);
-        myservo.write(ys); //convert readString to number for servo
+        ys=map(y,0,480,32,170);
+        //myservo.write(ys); //convert readString to number for servo
         Serial.println("Just wrote to scaled coordinates:");
         Serial.println(xs);
         Serial.println(ys);
