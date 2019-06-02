@@ -1,3 +1,8 @@
+#include <slavefuncs.h>
+
+
+
+
 // Chapter 7 - Communications
 // I2C Master
 // By Cornel Amariei for Packt Publishing
