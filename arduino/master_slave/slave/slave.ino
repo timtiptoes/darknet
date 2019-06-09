@@ -6,6 +6,7 @@
 #include <Wire.h>
 #include <stdio.h>
 #include <string.h>
+#include <Servo.h> 
 
 
 int LED = 13;
@@ -14,39 +15,10 @@ char old_recd_string[7]="";
 char c;
 int i;
 
-void append(char* s, char c)
-{
-        int len = strlen(s);
-        s[len] = c;
-        s[len+1] = '\0';
-}
+Servo myxservo; 
+Servo myyservo;
 
-struct pair {
-    int x;
-    int y;
-};
-
-struct pair convert_string(char* inputString)
-{
-  char now_string[20]="";
-  char *ptr;
-  ptr = strtok(inputString, ",");
-  int i=0;
-  int x;
-  int y;
-  while(ptr != NULL)
-    {
-      sprintf(now_string,"%s", ptr);
-      if(i==0){
-          sscanf(now_string,"%d",&x);
-          i++;}
-      else if (i==1){sscanf(now_string,"%d",&y);}
-      ptr = strtok(NULL, ",");
-
-    }
-  struct pair r = {x,y};
-return r;
-}
+#include <slave_utils.h>
 
 
 void setup() {
@@ -63,21 +35,10 @@ void setup() {
   Wire.onReceive(receiveEvent);
 }
 
-void receiveEvent(int howmany) {
-  memset(recd_string, 0, 7);
-  while (1 < Wire.available()) { // loop through all but the last
-    c = Wire.read(); // receive byte as a character
-    append(recd_string,c);
-    //Serial.print(c);         // print the character
-  }
-  int x = Wire.read();    // receive byte as an integer
-  c=x;
-  append(recd_string,c);
 
-}
 
 void loop() {
-  if (recd_string!=old_recd_string){
+  if (strcmp(recd_string,old_recd_string)!=0){
     
     struct pair result=convert_string(recd_string);
     
@@ -85,6 +46,5 @@ void loop() {
     Serial.print(result.x);
     Serial.print("----");
     Serial.println(result.y);
-    delay(5000);
   }
 }
