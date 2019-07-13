@@ -61,41 +61,56 @@ int button1State;
 
 void setup() // this function runs once when the sketch starts up
 {
-  // Initialize serial communication at 115200 baud
-  init_serial(Serial);
+
+
+Serial.begin(9600);
+ while (!Serial) {
+  ; // wait for serial port to connect.
+}
+delay(5000);
 
     // Get bounding box
 
-  digitalWrite(13, HIGH);     // Turn the LED on
-  Serial.println("Waiting for lower_right...");
+ digitalWrite(13, HIGH);     // Turn the LED on
+  Serial.println("Waiting for lower_rightPP...");
+    delay(5000);
 
-  struct pair lower_right = get_pot_reading(Serial);
-  int x0=lower_right.x;
-  int y0=lower_right.y;
+  int x0=5;
+  int y0=2;
+//  struct pair lower_right = get_pot_reading();
+  delay(5000);
+
+  //int x0=lower_right.x;
+  //int y0=lower_right.y;
   //digitalWrite(13, LOW);      // Turn the LED offr right corner
   //delay(1000);
   //digitalWrite(13, HIGH);     // Turn the LED on
 
   Serial.println("Waiting for upper_left...");
+  delay(5000);
+
+  int x1=12;
+  int y1=14;
   struct pair upper_left = get_pot_reading(Serial);
-  int x1=upper_left.x;
-  int y1=upper_left.y;
+  //int x1=upper_left.x;
+  //int y1=upper_left.y;
   //digitalWrite(13, LOW);      // Turn the LED offr right corner
   delay(5000);
 
   
   Serial.println("Initializing Wire...");
   Wire.begin();
-  delay(5000);
+  delay(9000);
   Serial.println("Initializing WiFly...");
-    init_wifli();
+   init_wifli();
 
-    delay(1000);
+    delay(9000);
 
 }
 
 
 void loop() {
+  Serial.println("Looping...");
   if (wifly.available()) {
     if(uart.find("*OPEN*")) // see if the data available is from an open connection by looking for the *OPEN* string
     {
@@ -129,10 +144,10 @@ void loop() {
 
         char out_string[7]="";
         sprintf(out_string, "%03d,%03d", x,y);
-        Serial.print("Transmitting:");
+        Serial.print("YXSTransmitting:");
         Serial.println(out_string);
-        transmit_coordinates(Wire,out_string);
-
+        //transmit_coordinates(Wire,out_string);
+        //send_coords(x,y);
         delay(2000);
 
       xl=x;

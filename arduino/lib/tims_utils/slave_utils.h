@@ -30,14 +30,14 @@ struct pair convert_string(char* inputString)
 return r;
 }
 
-void move_servo(HardwareSerial serial,Servo myx, Servo myy,struct pair pr)
+void move_servo(struct pair pr)
 {
-	myx.write(pr.x);
-    myy.write(pr.y);
+	myxservo.write(pr.x);
+    myyservo.write(pr.y);
     Serial.println("Just moved to ");
-	serial.print(pr.x);
-	serial.print(",");
-	serial.println(pr.y);
+	Serial.print(pr.x);
+	Serial.print(",");
+	Serial.println(pr.y);
 return;
 }
 

@@ -33,6 +33,14 @@ void setup() {
   Wire.begin(9); 
   // Attach a function to trigger when something is received.
   Wire.onReceive(receiveEvent);
+
+  myxservo.write(0); //set initial servo position to 0
+  myxservo.attach(9);
+
+  myyservo.write(0);
+  myyservo.attach(10);
+
+
 }
 
 
@@ -46,5 +54,7 @@ void loop() {
     Serial.print(result.x);
     Serial.print("----");
     Serial.println(result.y);
+    move_servo(result);
+
   }
 }
