@@ -85,7 +85,7 @@ struct pair get_pot_reading(HardwareSerial serial)
     ys=map(yValue,0,1023,0,180);
 
     if ((abs(xs-xs_old)>5)||(abs(ys-ys_old)>5)){
-      send_coords(xs,ys);
+      //send_coords(xs,ys);
       xs_old=xs;
       ys_old=ys;
     }
