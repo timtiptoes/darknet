@@ -4,7 +4,7 @@
  With this script you can enter coordinates into the serial monitor to send a servo to that position;
  */
 
-#include <Servo.h> 
+#include <Servo.h> 87
 String readString;
 
 Servo myservo;
@@ -13,7 +13,7 @@ void setup()
 { 
   Serial.begin(9600);
   myservo.write(0); //set initial servo position to 0
-  myservo.attach(9);  //the pin for the servo control
+  myservo.attach(10);  //the pin for the servo control
 
   Serial.println("direct_servo_test"); 
 
@@ -34,4 +34,3 @@ void loop()
     readString=""; //empty for next input
   } 
 } 
-

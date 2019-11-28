@@ -46,17 +46,6 @@ void transmit_coordinates(TwoWire wire,String rs){
     wire.endTransmission();    // stop transmitting
 }
 
-void send_coords(int x, int y){
-
-    char out_string[7]="";
-    sprintf(out_string, "%03d,%03d", x,y);
-    Serial.print("Transmitting:");
-    Serial.println(out_string);
-    Wire.beginTransmission(9); // transmit to device #9
-    Wire.write(out_string);              // sends x
-    Wire.endTransmission();    // stop transmitting
-}
-
 String fetch_kbd_string(HardwareSerial serial){
     String rs;
     while (Serial.available()) {
@@ -66,7 +55,7 @@ String fetch_kbd_string(HardwareSerial serial){
   }
   return rs;
 }
-/*
+
 struct pair get_pot_reading(HardwareSerial serial)
 {
   int xValue,yValue,xs_old=0,xs,ys,ys_old=0;
@@ -74,30 +63,30 @@ struct pair get_pot_reading(HardwareSerial serial)
   xValue = analogRead(xPin);  
   yValue = analogRead(yPin);
 
-  serial.println("About to enter while statemet");
-  delay(5000);
+  
   while(button1State == HIGH){
     xValue = analogRead(xPin);  
     yValue = analogRead(yPin);
 
     button1State = digitalRead(2);
     xs=map(xValue,0,1023,0,180);
-    ys=map(yValue,0,1023,0,180);
-
-    if ((abs(xs-xs_old)>5)||(abs(ys-ys_old)>5)){
-      //send_coords(xs,ys);
+    if ((abs(xs-xs_old)>5)){
+      myxservo.write(xs);
       xs_old=xs;
+    }
+    ys=map(yValue,0,1023,0,180);
+    if ((abs(ys-ys_old)>5)){
+      myyservo.write(ys);
       ys_old=ys;
     }
   }
   pair r = {xs_old,ys_old};
-  serial.println("Just sent these corners:");
-  serial.print(xs);
-  serial.print(",");
-  serial.println(ys);
+  Serial.println("Just sent these corners:");
+serial.print(xs);
+serial.print(",");
+serial.println(ys);
 return r;
 }
-*/
 
 void init_wifli(){
 
@@ -168,7 +157,7 @@ void init_wifli(){
 
 
 
-
+/*
 void
 send_coords(unsigned int x, unsigned int y){
   char out_string[30]="";
@@ -178,3 +167,4 @@ send_coords(unsigned int x, unsigned int y){
   Wire.endTransmission();    // stop transmitting
   return;
 }
+*/

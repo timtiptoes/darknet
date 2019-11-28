@@ -3,17 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <Servo.h> 
 #include <SoftwareSerial.h>
 #include "WiFly.h"
 #include <Wire.h>
 
 
 #define SSID      "ATTxUERtUI"
-#define KEY       "dontfear7thegipper8"
+#define KEY       "Dontfear7Thegipper8!"
 
 #define AUTH      WIFLY_AUTH_WPA2_PSK
-Servo myservo;
+
 char type[8]; // GET or POST
 char path[30]; // /info etc.
 //char path[100]; // /info etc.
@@ -91,7 +90,7 @@ delay(5000);
 
   int x1=12;
   int y1=14;
-  struct pair upper_left = get_pot_reading(Serial);
+  //struct pair upper_left = get_pot_reading(Serial);
   //int x1=upper_left.x;
   //int y1=upper_left.y;
   //digitalWrite(13, LOW);      // Turn the LED offr right corner
@@ -145,8 +144,8 @@ void loop() {
         char out_string[7]="";
         sprintf(out_string, "%03d,%03d", x,y);
         Serial.print("YXSTransmitting:");
-        Serial.println(out_string);
-        //transmit_coordinates(Wire,out_string);
+        //Serial.println(out_string);
+        transmit_coordinates(Wire,out_string);
         //send_coords(x,y);
         delay(2000);
 

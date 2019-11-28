@@ -33,7 +33,7 @@ void setup() {
   Wire.begin(9); 
   // Attach a function to trigger when something is received.
   Wire.onReceive(receiveEvent);
-
+ TIMSK0=0;
   myxservo.write(0); //set initial servo position to 0
   myxservo.attach(9);
 

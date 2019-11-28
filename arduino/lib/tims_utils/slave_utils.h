@@ -32,8 +32,13 @@ return r;
 
 void move_servo(struct pair pr)
 {
+  //myxservo.attach(9);
 	myxservo.write(pr.x);
-    myyservo.write(pr.y);
+  //myxservo.detach();
+  
+  //myyservo.attach(10);
+  myyservo.write(pr.y);
+  //myyservo.detach();
     Serial.println("Just moved to ");
 	Serial.print(pr.x);
 	Serial.print(",");

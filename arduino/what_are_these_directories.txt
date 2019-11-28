@@ -24,3 +24,11 @@ to
 -->Need to get x's and y's straigt
 -->Need to get sign right
 -->
+
+11/24/2019
+
+so use the second_arduino command to make a second instance of the arduiono IDE.
+Connect one to FD121 and the other to FA121
+As a test.
+I ran enter_coordinates_from_kbd on the master and slave on slave.
+I had to comments out bunches of stuff on tims_utils because I think the the contents of this file get inserted to wherever you include it, and as such if it uses global variables, then they'll needed to be defined. I must've gotten so far that I had all sorts of globals define. Well I commented them out and got it so I could enter on kbd and it'd show on the slave. Note I had to to the monitor on each
