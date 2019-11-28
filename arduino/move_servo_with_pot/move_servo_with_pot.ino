@@ -9,8 +9,7 @@
 
 
 #define SSID      "ATTxUERtUI"
-#define KEY       "Dontfear7Thegipper8!"
-
+#include <wifipwd.h>
 #define AUTH      WIFLY_AUTH_WPA2_PSK
 
 char type[8]; // GET or POST
